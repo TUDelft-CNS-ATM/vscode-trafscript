@@ -134,7 +134,7 @@
 		"acid-keywords": {
 			"patterns": [
 				{
-					"match": "\\b(?i)(\\w+)\\s*[, ]\\s*(ADDWPT|AFTER|ALT|AT|ATALT|ATSPD|BEFORE|COLOR|DEL|DELRTE|DELWPT|DEST|DIRECT|DUMPRTE|ENG|HDG|LISTRTE|LNAV|MOVE|ND|NOM|NORESO|ORIG|POS|SPD|VNAV|VS)\\b",
+					"match": "\\b(?i)([^,\\s]+)\\s*[, ]\\s*(ADDWPT|AFTER|ALT|AT|ATALT|ATSPD|BEFORE|COLOR|DEL|DELRTE|DELWPT|DEST|DIRECT|DUMPRTE|ENG|HDG|LISTRTE|LNAV|MOVE|ND|NOM|NORESO|ORIG|POS|SPD|VNAV|VS)\\b",
 					"captures": {
 						"1": {
 							"name": "variable.parameter"
@@ -146,7 +146,7 @@
 					}
 				},
 				{
-					"match": "\\b(?i)(ADDWPT|AFTER|ALT|AT|ATALT|ATSPD|BEFORE|COLOR|CRE|CRECONFS|DEL|DELRTE|DELWPT|DEST|DIRECT|DUMPRTE|ENG|HDG|LISTRTE|LNAV|MOVE|ND|NOM|NORESO|ORIG|POS|SPD|VNAV|VS)\\s*[, ]\\s*(\\w+)\\b",
+					"match": "\\b(?i)(ADDWPT|AFTER|ALT|AT|ATALT|ATSPD|BEFORE|COLOR|CRE|CRECONFS|DEL|DELRTE|DELWPT|DEST|DIRECT|DUMPRTE|ENG|HDG|LISTRTE|LNAV|MOVE|ND|NOM|NORESO|ORIG|POS|SPD|VNAV|VS)\\s*[, ]\\s*([^,\\s]+)\\b",
 					"captures": {
 						"1": {
 							"name": "keyword.control.trafscript"
