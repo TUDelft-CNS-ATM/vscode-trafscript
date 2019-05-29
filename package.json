@@ -1,0 +1,30 @@
+{
+    "name": "trafscript",
+    "displayName": "TrafScript",
+    "description": "BlueSky/TMX TrafScript support",
+    "version": "0.0.1",
+    "publisher": "tudelft-cnsatm",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/TUDelft-CNS-ATM/vscode-trafscript.git"
+    }
+    "engines": {
+        "vscode": "^1.32.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "trafscript",
+            "aliases": ["TrafScript", "trafscript"],
+            "extensions": [".scn"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "trafscript",
+            "scopeName": "source.trafscript",
+            "path": "./syntaxes/trafscript.tmLanguage.json"
+        }]
+    }
+}

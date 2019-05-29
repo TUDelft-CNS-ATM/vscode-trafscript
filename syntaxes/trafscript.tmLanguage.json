@@ -1,0 +1,195 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "TrafScript",
+	"patterns": [
+		{
+			"include": "#commentlines"
+		},
+		{
+			"include": "#commandlines"
+		}
+	],
+	"repository": {
+		"commandlines": {
+			"begin": "(\\d{1,2}:\\d{1,2}:\\d{1,2}\\.?\\d{0,2}>)",
+			"end": "\\n",
+			"beginCaptures": {
+				"1": {
+					"name": "markup.bold"
+				}
+			},
+			"name": "TrafScript.commandline",
+			"patterns": [
+				{
+					"include": "#acid-keywords"
+				},
+				{
+					"include": "#string-keywords"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#numeric-literal"
+				},
+				{
+					"include": "#booleans"
+				}
+			]
+		},
+		"commentlines": {
+			"patterns": [{
+				"name":"comment.line",
+				"match": "#.*"
+			}]
+		},
+
+		"booleans": {
+			"patterns": [{
+				"name":"constant.language",
+				"match": "\\b(?i)(true|false|on|off|yes|no)\\b"
+			}]
+		},
+		"numeric-literal": {
+			"patterns": [
+				{
+					"name": "constant.numeric.hex.js",
+					"match": "\\b(?<!\\$)0(?:x|X)[0-9a-fA-F][0-9a-fA-F_]*(n)?\\b(?!\\$)",
+					"captures": {
+						"1": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				},
+				{
+					"name": "constant.numeric.binary.js",
+					"match": "\\b(?<!\\$)0(?:b|B)[01][01_]*(n)?\\b(?!\\$)",
+					"captures": {
+						"1": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				},
+				{
+					"name": "constant.numeric.octal.js",
+					"match": "\\b(?<!\\$)0(?:o|O)?[0-7][0-7_]*(n)?\\b(?!\\$)",
+					"captures": {
+						"1": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				},
+				{
+					"match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)| # 1.1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # 1.E+3\n  (?:\\B(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # .1E+3\n  (?:\\b[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|                 # 1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b)|                      # 1.1\n  (?:\\b[0-9][0-9_]*(\\.)(n)?\\B)|                                  # 1.\n  (?:\\B(\\.)[0-9][0-9_]*(n)?\\b)|                                  # .1\n  (?:\\b[0-9][0-9_]*(n)?\\b(?!\\.))                                 # 1\n)(?!\\$)",
+					"captures": {
+						"0": {
+							"name": "constant.numeric.decimal.js"
+						},
+						"1": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"2": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"3": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"4": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"5": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"6": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"7": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"8": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"9": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"10": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"11": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"12": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"13": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"14": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				}
+			]
+		},
+		"acid-keywords": {
+			"patterns": [
+				{
+					"match": "\\b(?i)(\\w+)\\s*[, ]\\s*(ADDWPT|AFTER|ALT|AT|ATALT|ATSPD|BEFORE|COLOR|DEL|DELRTE|DELWPT|DEST|DIRECT|DUMPRTE|ENG|HDG|LISTRTE|LNAV|MOVE|ND|NOM|NORESO|ORIG|POS|SPD|VNAV|VS)\\b",
+					"captures": {
+						"1": {
+							"name": "variable.parameter"
+						},
+						"2": {
+							"name": "keyword.control.trafscript"
+							
+						}
+					}
+				},
+				{
+					"match": "\\b(?i)(ADDWPT|AFTER|ALT|AT|ATALT|ATSPD|BEFORE|COLOR|CRE|CRECONFS|DEL|DELRTE|DELWPT|DEST|DIRECT|DUMPRTE|ENG|HDG|LISTRTE|LNAV|MOVE|ND|NOM|NORESO|ORIG|POS|SPD|VNAV|VS)\\s*[, ]\\s*(\\w+)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.control.trafscript"
+						},
+						"2": {
+							"name": "variable.parameter"
+						}
+					}
+				}
+			]
+		},
+		"string-keywords": {
+			"patterns": [
+				{
+					"match": "\\b(?i)(BATCH|CD|ECHO|IC|INSEDIT|LEGEND|LOAD|PCALL|SAVEIC|SCEN|CALL|CHDIR|OPEN|PRINT|SAVE)\\s*[, ]?\\s*(.+)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.control.trafscript"
+						},
+						"2": {
+							"name": "string"
+						}
+					}
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.trafscript",
+				"match": "\\b(?i)(FLSTLOG|AREA|TAXI|DATAFEED|GEOVECTOR|DELGEOVECTOR|METRICS|ADDNODES|AIRWAY|ASAS|ASASV|BLUESKY|BENCHMARK|BOX|CALC|CDMETHOD|CIRCLE|CRELOG|DATE|DEFWPT|DELAY|DIST|DOC|DT|DTLOOK|DTMULT|DTNOLOOK|FF|FILTERALT|FIXDT|GETWIND|GROUP|HELP|HOLD|LINE|LSVAR|MAKEDOC|MCRE|NOISE|OP|PAN|PLOT|PLUGINS|POLY|POLYALT|POLYLINE|PRIORULES|QUIT|RESET|RFACH|RFACV|RESO|RESOOFF|RMETHH|RMETHV|RSZONEDH|RSZONER|SCHEDULE|SEED|SSD|SWRAD|SYMBOL|SYN|TIME|TMX|TRAIL|UNGROUP|WIND|ZONEDH|ZONER|ZOOM|ADDAIRWAY|AWY|AIRPORT|AIRWAYS|COL|COLOUR|CONTINUE|CREATE|CLOSE|DEBUG|DELETE|DELWP|DELROUTE|DIRECTTO|DIRTO|DISP|END|EXIT|FWD|HEADING|HMETH|HRESOM|HRESOMETH|LINES|PAUSE|PLUGIN|PLUG-IN|PLUG-INS|POLYGON|POLYLINES|Q|RTF|STOP|RUN|RUNWAYS|RESOFACH|RESOFACV|SPEED|START|TRAILS|TURN|VMETH|VRESOM|VRESOMETH|BGPASAS|DFFLEVEL|FFLEVEL|FILTCONF|FILTTRED|FILTTAMB|GRAB|HDGREF|MOVIE|NAVDB|PREDASAS|RENAME|RETYPE|SWNLRPASAS|TRAFRECDT|TRAFLOGDT|TREACT|WINDGRID)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.trafscript",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.trafscript",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.trafscript"
+}
